@@ -1,6 +1,6 @@
 # React Redux RSS Webpack
 
-The aim here was to keep it simple for the technical test
+The aim here was to keep it simple for the technical test so I started with a React Redux Webpack Boilerplate Project
 
 ## Deps
 
