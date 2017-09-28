@@ -13,4 +13,8 @@ The aim here was to keep it simple for the technical test so I started with a Re
 ## Dev
 
     node_modules/.bin/webpack-dev-server --hot --inline
+    
+## Browser
 
+    http://localhost:8080/
+    
