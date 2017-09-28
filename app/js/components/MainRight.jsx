@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
-import { toggleTodo } from '../actions';
+import { toggleTodo, saveFeed } from '../actions';
 var FeedMe = require('feedme');
 var http = require('http');
 
@@ -39,12 +39,15 @@ class Compare extends Component {
         array.push(<li key={idNew++}><h2>{item.title} - {item.pubdate}</h2><p dangerouslySetInnerHTML={createMarkup(item.description)}></p><hr/></li>)
       });
       res.pipe(parser);
-    });
-      this.setState({
+    }, function(){
+        dispatch(saveFeed(array));
+        this.setState({
           rssArray: array
       }, function(){
           console.log(this.state.rssArray)
       })
+    });
+      
   }
   
 
@@ -64,8 +67,7 @@ class Compare extends Component {
     const rssArray = this.state.rssArray
     if (this.props.url == this.props.id){
          return (
-            <div>{this.state.content}<ul style={{listStyle:'none'}}>{rssArray}</ul></div>
-             
+            <div>ABC<ul style={{listStyle:'none'}}>{rssArray}</ul></div>
         )
     }else{
          return (
@@ -115,10 +117,12 @@ const TodoList = ({
 
 const getVisibleTodos = (
   todos,
-  filter
+  filter,
+  feed
 ) => {
   switch (filter) {
     case 'SHOW_ALL':
+      console.log(feed)
       return todos;
     case 'SHOW_COMPLETED':
       return todos.filter(
@@ -131,14 +135,26 @@ const getVisibleTodos = (
   }
 }
 
+const getFeed = (
+  feed,
+    filter
+) => {
+  switch (filter) {
+    case 'SHOW_FEED':
+      console.log(feed)
+      return feed;
+  }
+}
+
 const mapStateToProps = (
   state
 ) => {
   return {
     todos: getVisibleTodos(
       state.todos,
-      state.visibilityFilter
-    )
+      state.visibilityFilter,
+    ),
+    feed: getFeed(state.feed)
   };
 };
 const mapDispatchToProps = (

@@ -12,6 +12,8 @@ import { loadState, saveState } from './localStorage.jsx'
 store.subscribe(() => {
     saveState(store.getState());
 })
+console.log("save")
+console.log(store.getState().todos);
 
 const TodoApp = () => (
   <div>
